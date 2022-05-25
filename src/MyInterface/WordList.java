@@ -6,9 +6,12 @@ import java.util.Locale;
 
 public class WordList {
 
-    private final ArrayList<String> list = null;  //wordlist
+    private ArrayList<String> list = null;  //wordlist
     private BufferedReader br = null;
+    private static String ans = "STAMP";    //the answer
+
     public WordList(){
+        list = new ArrayList<String>();
         try {
             br = new BufferedReader(new FileReader("/Users/arnoldsun/IdeaProjects/miniproject/wordList.txt"));
             String tmp = br.readLine();
@@ -34,6 +37,14 @@ public class WordList {
 
     public boolean inWordlist(String s){
         return list.contains(s);
+    }
+
+    /**
+     * static method get the answer of the game.
+     * @return string answer
+     */
+    public static String getAns(){
+        return ans;
     }
 
 }

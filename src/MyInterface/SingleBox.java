@@ -28,15 +28,6 @@ public class SingleBox extends JLabel {
         this.setBackground(bgColor);
         this.setOpaque(true);  //not transparent
         this.setForeground(Color.BLACK);
-//        this.setLayout(new CardLayout(2, 2));
-//        jl = new JLabel("A");
-//        jl.setFont(new Font("SansSerif", Font.BOLD, 20));
-//        jl.setHorizontalAlignment(JLabel.CENTER); //center in horizon
-//        jl.setVerticalAlignment(JLabel.CENTER);   //center in vertical
-//        jl.setSize(58, 58);
-//        jl.setBackground(_yellow);
-
-//        this.add(jl);
     }
 
     /**

@@ -8,23 +8,26 @@ public class KeyboardReader implements KeyListener, Enter {
 
     LetterBoxes boxes = null;
     SingleBox box = null;
+    WordList wordList = null;
+    JFrame fatherFrame = null;
 
-    public KeyboardReader(LetterBoxes letterBoxes){
-        boxes = letterBoxes;
+    public KeyboardReader(LetterBoxes letterBoxes, WordList wordList, JFrame fatherFrame){
+        this.wordList = wordList;
+        this.fatherFrame = fatherFrame;
+        this.boxes = letterBoxes;
         boxes.addKeyListener(this);
 
-        System.out.println("ok");       //for debug
-        boxes.addFocusListener(new FocusListener() {      //for debug :
-            @Override
-            public void focusGained(FocusEvent e) {
-                boxes.setBackground(Color.CYAN);
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                boxes.setBackground(Color.GREEN);
-            }
-        });
+//        boxes.addFocusListener(new FocusListener() {      //for debug :
+//            @Override
+//            public void focusGained(FocusEvent e) {
+//                boxes.setBackground(Color.CYAN);
+//            }
+//
+//            @Override
+//            public void focusLost(FocusEvent e) {
+//                boxes.setBackground(Color.GREEN);
+//            }
+//        });
     }
 
 
@@ -102,13 +105,19 @@ public class KeyboardReader implements KeyListener, Enter {
 
     private void _typeEnter (){
         if (Position.getCol() == LetterBoxes.COLS){
-            if (Enter.submit(boxes.getRow(Position.getRow()))){     //看不懂了
+            int flag = Enter.submit(boxes.getRow(Position.getRow()), wordList); //0-not, 1-win, 2-word not found
+            if (flag == 1){
                 Position.setRow(6);
-            }else{
+                PopWindow pop = new PopWindow(fatherFrame, "You win!");
+                pop.setVisible(true);
+            }else if (flag == 0){
                 if (Position.getRow() < LetterBoxes.ROWS) {
                     Position.setRow(Position.getRow() + 1);
                     Position.setCol(0);
                 }
+            }else{  //2-not in wordlist
+                PopWindow pop = new PopWindow(fatherFrame, "not in wordlist");
+                pop.setVisible(true);
             }
 
         }

@@ -8,8 +8,8 @@ public class MainPage extends JFrame{
     private LetterBoxes letterBoxes = null;
     private JButton enter = null;
     private JButton delete = null;
+    private WordList wordList = null;
 
-//    SingleBox test = null;
     KeyboardReader k = null;
     ButtonOperator b = null;
 
@@ -20,6 +20,7 @@ public class MainPage extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //exit javax when close the window
         this.setResizable(false);   //do not let user resize the window
         this.setLayout(null);
+        this.wordList = new WordList();
         this._buildPage();
     }
 
@@ -42,7 +43,7 @@ public class MainPage extends JFrame{
         Container c = this.getContentPane();
         letterBoxes = new LetterBoxes();
         letterBoxes.setBounds(133, 130, LetterBoxes.WIDTH, LetterBoxes.HEIGHT);
-        k = new KeyboardReader(letterBoxes);
+        k = new KeyboardReader(letterBoxes, wordList, this);
         c.add(letterBoxes);
 
         titleLabel = new JLabel("Wordle");
@@ -55,7 +56,7 @@ public class MainPage extends JFrame{
         enter = new JButton("ENTER");
         enter.setFont(new Font("SansSerif", Font.PLAIN, 22));
         enter.setBounds(100, 650, 151, 70);
-        b = new ButtonOperator(enter, letterBoxes);
+        b = new ButtonOperator(enter, letterBoxes, wordList, this);
         c.add(enter);
 
         delete = new JButton("DELETE");
