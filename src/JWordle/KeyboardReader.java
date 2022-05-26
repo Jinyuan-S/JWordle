@@ -1,16 +1,51 @@
-package MyInterface;
+/*
+ * Copyright 2022 Jinyuan Sun (https://github.com/Jinyuan-S)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+ * Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+ * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.THE
+ * SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+ * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package JWordle;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Deal with Keyboard input.
+ * <p>
+ *     This class was designed to get the keyboard input and make some response. such as input letter into the WordBox,
+ *     make actions respond to some function key and so on.
+ * </p>
+ *
+ * @author Jinyuan Sun
+ * @version 1.0
+ */
 public class KeyboardReader implements KeyListener, Enter {
-
     LetterBoxes boxes = null;
     SingleBox box = null;
     WordList wordList = null;
     JFrame fatherFrame = null;
 
+    /**
+     * Initialize a {@code KeyboardReader}.
+     * @param letterBoxes an instance of {@code LetterBoxes}.
+     * @param wordList an instance of {@code WordList}.
+     * @param fatherFrame the father Frame.
+     */
     public KeyboardReader(LetterBoxes letterBoxes, WordList wordList, JFrame fatherFrame){
         this.wordList = wordList;
         this.fatherFrame = fatherFrame;
@@ -30,7 +65,10 @@ public class KeyboardReader implements KeyListener, Enter {
 //        });
     }
 
-
+    /**
+     * General method response to a key typing event.
+     * @param e the KeyEvent to be processed
+     */
     @Override
     public void keyTyped(KeyEvent e) {
 //        System.out.println("in keyTyped current row: " + Position.getRow() +" current col: " + Position.getCol());
@@ -54,15 +92,19 @@ public class KeyboardReader implements KeyListener, Enter {
 
     }
 
+    /**
+     * Do nothing (empty method).
+     * @param e the event to be processed
+     */
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {}
 
-    }
-
+    /**
+     * Do nothing (empty method).
+     * @param e the event to be processed
+     */
     @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
+    public void keyReleased(KeyEvent e) {}
 
 
     /**
@@ -84,6 +126,10 @@ public class KeyboardReader implements KeyListener, Enter {
         }else return 0;
     }
 
+    /**
+     * Private method to type a letter into a {@code SingleBox}.
+     * @param c new letter to be written.
+     */
     private void _typeLetter (char c){
         if (Position.getCol() < LetterBoxes.COLS){
             box = boxes.getSingleBox(Position.getRow(), Position.getCol());
@@ -95,6 +141,10 @@ public class KeyboardReader implements KeyListener, Enter {
 //        }
     }
 
+    /**
+     * Private method to response to a Backspace.
+     * <p>Delete a letter in current row</p>
+     */
     private void _typeBackspace (){
         if (Position.getCol() > 0){
             Position.setCol(Position.getCol() - 1);
@@ -103,6 +153,9 @@ public class KeyboardReader implements KeyListener, Enter {
         box.setText(" ");
     }
 
+    /**
+     * Private method response to a Enter.
+     */
     private void _typeEnter (){
         if (Position.getCol() == LetterBoxes.COLS){
             int flag = Enter.submit(boxes.getRow(Position.getRow()), wordList); //0-not, 1-win, 2-word not found
