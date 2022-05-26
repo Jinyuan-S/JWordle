@@ -55,4 +55,21 @@ javadoc -d ./doc ./src/JWordle/*.java
 1. Menu page
 2. Account & userlogin
 
+### v1.3
 
+**about:** added login interface and restart function.
+
+**already have：**
+
+1. Basic GUI window
+2. Sinple input logic, button action
+3. Wordlist check, Legality check
+4. Simple pop-window reminder
+5. Login
+6. Restart(with bug)
+
+**Todo：**
+
+1. Menu page
+2. Account & userlogin(logic)
+3. fix bug in restart

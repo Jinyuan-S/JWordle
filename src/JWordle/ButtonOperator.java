@@ -86,7 +86,8 @@ public class ButtonOperator implements MouseListener, Enter{
             int flag = Enter.submit(boxes.getRow(Position.getRow()), wordList);
             if (flag == 1){
                 Position.setRow(6);
-                PopWindow pop = new PopWindow(fatherFrame, "You win!");
+                PopWindow pop = new PopWindow(fatherFrame, "You win!", false);
+                pop.jb.addActionListener(new ClickRestart(pop, boxes));
                 pop.setVisible(true);
             }else if (flag == 0) {
                 if (Position.getRow() < LetterBoxes.ROWS) {
@@ -94,7 +95,7 @@ public class ButtonOperator implements MouseListener, Enter{
                     Position.setCol(0);
                 }
             }else{
-                PopWindow pop = new PopWindow(fatherFrame, "Not in wordlist!");
+                PopWindow pop = new PopWindow(fatherFrame, "Not in wordlist!", true);
                 pop.setVisible(true);
             }
 

@@ -33,18 +33,19 @@ import java.awt.event.ActionListener;
  * </p>
  *
  * @author Jinyuan Sun
- * @version 1.2
+ * @version 1.4
  */
 public class PopWindow extends JDialog {
-//    JLabel label = null;
 
+    JButton jb;
     /**
      * Creates a PopWindow instance with default width of 251 and default height of 300.
      * pop window will block the father window.
      * @param jFrame the father window.
      * @param text the text to be displayed.
+     * @param useClickClose whether to use the default {@code ClickClose} ActionListener
      */
-    public PopWindow(JFrame jFrame, String text){
+    public PopWindow(JFrame jFrame, String text, boolean useClickClose){
         super(jFrame, "Reminder", true);
         this.setLayout(null);
         Container c = this.getContentPane();
@@ -56,11 +57,11 @@ public class PopWindow extends JDialog {
         label.setBounds(25,25,201, 30);
 
         c.add(label);
-        ////////
 
-
-        JButton jb = new JButton("Close");
-        jb.addActionListener(new ClickClose(this));
+        jb = new JButton("Close");
+        if (useClickClose){
+            jb.addActionListener(new ClickClose(this));
+        }
         jb.setBounds(75, 85, 100, 50);
         c.add(jb);
 
@@ -126,3 +127,20 @@ class ClickChangeCard implements ActionListener {
     }
 }
 
+class ClickRestart implements ActionListener {
+    JDialog window = null;
+    LetterBoxes boxes;
+    /**
+     * Constructor.
+     * @param window the father {@code JDialog}.
+     */
+    public ClickRestart(JDialog window, LetterBoxes boxes){
+        this.window = window;
+        this.boxes = boxes;
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        boxes.refresh();
+        window.dispose();
+    }
+}

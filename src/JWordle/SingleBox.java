@@ -71,7 +71,7 @@ public class SingleBox extends JLabel {
 
     /**
      * To refresh the single box.
-     * @param type the refresh type, 1: incorrect, 2: not in right position, 3: correct
+     * @param type the refresh type, 1: incorrect, 2: not in right position, 3: correct; 4: empty.
      */
     public void refresh (int type){
         this._setColor(type);
@@ -86,10 +86,14 @@ public class SingleBox extends JLabel {
             this.border = BorderFactory.createLineBorder(_yellow, 4);
             this.setBorder(border);
             this.setBackground(_yellow);
-        }else{      //correct --green
+        }else if (type == 3){      //correct --green
             this.border = BorderFactory.createLineBorder(_green, 4);
             this.setBorder(border);
             this.setBackground(_green);
+        }else{
+            this.border = BorderFactory.createLineBorder(_borderGray, 4);
+            this.setBorder(border);
+            this.setBackground(Color.WHITE);
         }
     }
 

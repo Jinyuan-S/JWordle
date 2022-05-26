@@ -162,7 +162,8 @@ public class KeyboardReader implements KeyListener, Enter {
             int flag = Enter.submit(boxes.getRow(Position.getRow()), wordList); //0-not, 1-win, 2-word not found
             if (flag == 1){
                 Position.setRow(6);
-                PopWindow pop = new PopWindow(fatherFrame, "You win!");
+                PopWindow pop = new PopWindow(fatherFrame, "You win!", false);
+                pop.jb.addActionListener(new ClickRestart(pop, boxes));
                 pop.setVisible(true);
             }else if (flag == 0){
                 if (Position.getRow() < LetterBoxes.ROWS) {
@@ -170,7 +171,7 @@ public class KeyboardReader implements KeyListener, Enter {
                     Position.setCol(0);
                 }
             }else{  //2-not in wordlist
-                PopWindow pop = new PopWindow(fatherFrame, "not in wordlist");
+                PopWindow pop = new PopWindow(fatherFrame, "not in wordlist", true);
                 pop.setVisible(true);
             }
 

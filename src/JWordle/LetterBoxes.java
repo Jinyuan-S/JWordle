@@ -75,4 +75,14 @@ public class LetterBoxes extends JPanel {
         return this.boxes[row][col];
     }
 
+    public void refresh(){
+        for (int i = 0; i < boxes.length; i++){ //initialize the array
+            for (int j = 0; j < boxes[i].length; j++){
+                boxes[i][j].refresh(4, " ");
+            }
+        }
+        Position.setRow(0);
+        Position.setCol(0);
+    }
+
 }
