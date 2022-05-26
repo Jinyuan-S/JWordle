@@ -33,18 +33,26 @@ import java.awt.event.*;
  *  </p>
  *
  * @author Jinyuan Sun
- * @version 1.0
+ * @version 1.4
  */
 public class MainPage extends JFrame{
+    /**
+     * The width of the whole GUI window
+     */
+    public static int WIDTH = 601;
+    /**
+     * The height of the whole GUI window
+     */
+    public static int HEIGHT = 850;
     private JLabel titleLabel = null;
     private JLabel version = null;
     private LetterBoxes letterBoxes = null;
-    private JButton enter = null;
-    private JButton delete = null;
+    private LoginWindow login = null;
     private WordList wordList = null;
+    private JButton [] jbArray = null;      //store all the buttons
 
-    KeyboardReader k = null;
-    ButtonOperator b = null;
+    KeyboardReader k;
+    ButtonOperator b;
 
     /**
      * The default constructor of {@code MainPage} class.
@@ -52,13 +60,16 @@ public class MainPage extends JFrame{
      */
     public MainPage(){
         this.setTitle("Wordle by Jinyuan");
-        this.setSize(601, 850);
+        this.setSize(WIDTH, HEIGHT);
         this.setLocationRelativeTo(null);       //make the window always generate at the center of screen
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //exit javax when close the window
         this.setResizable(false);   //do not let user resize the window
         this.setLayout(null);
         this.wordList = new WordList("wordList.txt");
+        this.jbArray = new JButton[10];     //ten button in total.
         this._buildPage();
+        k = new KeyboardReader(letterBoxes, wordList, this);
+        b = new ButtonOperator(jbArray, letterBoxes, wordList, this);
     }
 
     /**
@@ -72,6 +83,13 @@ public class MainPage extends JFrame{
             }
         });
         this.setVisible(true);
+        try{
+            Thread.sleep(1000);     //wait 1 second to show the login window
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        login.setVisible(true);
     }
 
     /**
@@ -81,7 +99,6 @@ public class MainPage extends JFrame{
         Container c = this.getContentPane();
         letterBoxes = new LetterBoxes();
         letterBoxes.setBounds(133, 130, LetterBoxes.WIDTH, LetterBoxes.HEIGHT);
-        k = new KeyboardReader(letterBoxes, wordList, this);
         c.add(letterBoxes);
 
         titleLabel = new JLabel("Wordle");
@@ -91,25 +108,133 @@ public class MainPage extends JFrame{
         titleLabel.setBounds(200, 40, 201, 50);
         c.add(titleLabel);
 
-        version = new JLabel("version 1.0 @Jinyuan");
+        version = new JLabel("version 1.1 @Jinyuan");
         version.setFont(new Font("Serif", Font.PLAIN, 15) );
         version.setHorizontalAlignment(JLabel.CENTER);
         version.setVerticalAlignment(JLabel.CENTER);
         version.setBounds(200, 750, 201, 50);
         c.add(version);
 
-        enter = new JButton("ENTER");
+        //the enter button in main page
+        jbArray[0] = new JButton("ENTER");
+        jbArray[0].setFont(new Font("SansSerif", Font.PLAIN, 22));
+        jbArray[0].setBounds(100, 650, 151, 70);
+        System.out.println("the enter hash code in main is" + jbArray[0].hashCode());
+        c.add(jbArray[0]);
 
-        enter.setBackground(Color.blue);
-        enter.setForeground(Color.BLACK);
-        enter.setFont(new Font("SansSerif", Font.PLAIN, 22));
-        enter.setBounds(100, 650, 151, 70);
-        b = new ButtonOperator(enter, letterBoxes, wordList, this);
-        c.add(enter);
+        //the setting button in main page
+        jbArray[1] = new JButton("SETTING");
+        jbArray[1].setFont(new Font("SansSerif", Font.PLAIN, 22));
+        jbArray[1].setBounds(351, 650, 151, 70);
+        c.add(jbArray[1]);
 
-        delete = new JButton("DELETE");
-        delete.setFont(new Font("SansSerif", Font.PLAIN, 22));
-        delete.setBounds(351, 650, 151, 70);
-        c.add(delete);
+        //the login window
+        login = new LoginWindow(300, 500, this, "Login");
+
+
     }
+}
+
+class LoginWindow extends PopWindow{
+    int width = 0;
+    int height = 0;
+    public LoginWindow(int width, int height, JFrame jFrame, String title) {
+        super(width, height, jFrame, title);
+        this.width = width;
+        this.height = height;
+        Layer baseLayer = new Layer(width, height);
+        baseLayer.setLayout(new CardLayout());
+        System.out.println(this.getLayout());
+
+        Layer inputPage = _buildInputPage(baseLayer);
+        Layer loginSuccess = _buildLoginSuccess();
+        Layer enrollSuccess = new Layer(width, height);
+
+
+
+        baseLayer.add("inputPage", inputPage);
+        baseLayer.add("loginSuccess", loginSuccess);
+        baseLayer.add("enrollSuccess", enrollSuccess);
+        ((CardLayout)baseLayer.getLayout()).show(baseLayer,"inputPage");
+
+        this.add(baseLayer);
+    }
+
+    private Layer _buildInputPage(JPanel baseLayer){
+        Layer inputPage = new Layer(width, height);
+
+        //The first line "Login"
+        JLabel label = _makeLabel("Login", "Serif", Font.BOLD, 30);
+        label.setBounds(50,25,201, 40);
+        inputPage.add(label);
+        ////////
+
+        //The button "Login/Enroll"
+
+        JButton jb = new JButton("Login/Enroll");
+        jb.setFont(new Font("SansSerif", Font.BOLD, 15));
+        jb.addActionListener(new ClickChangeCard(baseLayer, "loginSuccess"));
+        jb.setBounds(75, 250, 150, 50);
+        inputPage.add(jb);
+
+        JLabel jl = _makeLabel("---Login your account---", "Serif", Font.PLAIN, 15);
+        jl.setBounds(60, 100, 180, 20);
+        inputPage.add(jl);
+
+        JLabel jl1 = _makeLabel("If the Account exists, then login", "Serif", Font.PLAIN, 15);
+        jl1.setBounds(25, 350, 250, 20);
+        inputPage.add(jl1);
+
+        JLabel jl2 = _makeLabel("Else create a new Account", "Serif", Font.PLAIN, 15);
+        jl2.setBounds(60, 370, 180, 20);
+        inputPage.add(jl2);
+
+        JTextField textField = new JTextField("username");
+        textField.setColumns(5);
+        textField.setBounds(60, 120, 180, 50);
+        textField.setFont(new Font("SansSerif", Font.BOLD, 15));
+        textField.setHorizontalAlignment(JTextField.CENTER);
+        inputPage.add(textField);
+
+        return inputPage;
+    }
+
+    private Layer _buildLoginSuccess(){
+        Layer loginSuccess = new Layer(width, height);
+
+        //The first line "Login Successful!"
+        JLabel line1 = _makeLabel("Successful", "Serif", Font.BOLD, 30);
+        line1.setBounds(50,35,201, 40);
+        loginSuccess.add(line1);
+
+        JLabel line2 = _makeLabel("Login", "Serif", Font.BOLD, 30);
+        line2.setBounds(50,75,201, 40);
+        loginSuccess.add(line2);
+
+        //The button "Let's play"
+        JButton jb = new JButton("Let's Play!");
+        jb.setFont(new Font("SansSerif", Font.BOLD, 15));
+        jb.addActionListener(new ClickClose(this));
+        jb.setBounds(75, 250, 150, 50);
+        loginSuccess.add(jb);
+
+        return loginSuccess;
+    }
+
+    private JLabel _makeLabel(String text, String font ,int FontStyle, int textSize){
+        JLabel label = new JLabel(text);
+        label.setFont(new Font(font, FontStyle, textSize) );
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setVerticalAlignment(JLabel.CENTER);
+        return label;
+    }
+
+    private class Layer extends JPanel{
+        public Layer(int width, int height){
+            this.setSize(width, height);
+            this.setLayout(null);
+        }
+    }
+
+
 }
