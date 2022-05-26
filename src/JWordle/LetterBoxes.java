@@ -26,10 +26,22 @@ import java.awt.*;
 
 public class LetterBoxes extends JPanel {
     private SingleBox boxes[][] = new SingleBox[6][5];
-    public static final int WIDTH = 335;    //define the width of the letter box
-    public static final int HEIGHT = 403;   //define the height of the letter box
-    public static final int ROWS = 6;       //define the rows of the box
-    public static final int COLS = 5;       //define the colomns of the box
+    /**
+     * define the width of the letter box
+     */
+    public static final int WIDTH = 335;
+    /**
+     * define the height of the letter box
+     */
+    public static final int HEIGHT = 403;
+    /**
+     * define the rows of the box
+     */
+    public static final int ROWS = 6;
+    /**
+     * define the colomns of the box
+     */
+    public static final int COLS = 5;
 
     public LetterBoxes(){
         this.setLayout(new GridLayout(ROWS, COLS, 5, 5));
@@ -54,6 +66,11 @@ public class LetterBoxes extends JPanel {
         return this.boxes[row];
     }
 
+    /**
+     * Get a specified {@code LetterBox} item indexing by row and column.
+     * @param row the row to return [0, 5]
+     * @return SingleBox[] array
+     */
     public SingleBox getSingleBox(int row, int col){
         return this.boxes[row][col];
     }

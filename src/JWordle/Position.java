@@ -30,7 +30,13 @@ package JWordle;
  * <p><b>col</b> indicates the current col.(initial value is 0)</p>
  */
 public class Position {
+    /**
+     * <b>row</b> indicates the current row.(initial value is 0)
+     */
     private static int row = 0;
+    /**
+     * <b>col</b> indicates the current col.(initial value is 0)
+     */
     private static int col = 0;
 
     /**

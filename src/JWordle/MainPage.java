@@ -57,7 +57,7 @@ public class MainPage extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //exit javax when close the window
         this.setResizable(false);   //do not let user resize the window
         this.setLayout(null);
-        this.wordList = new WordList("/Users/arnoldsun/IdeaProjects/miniproject/wordList.txt");
+        this.wordList = new WordList("wordList.txt");
         this._buildPage();
     }
 
