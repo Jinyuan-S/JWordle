@@ -22,7 +22,6 @@
 package JWordle;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -33,7 +32,7 @@ import java.awt.event.MouseListener;
  * </p>
  *
  * @author Jinyuan Sun
- * @version 1.2
+ * @version 1.3
  */
 public class ButtonOperator implements MouseListener, Enter{
     JButton enter = null;
@@ -72,7 +71,7 @@ public class ButtonOperator implements MouseListener, Enter{
     @Override
     public void mouseClicked(MouseEvent e) {
         int src = e.getSource().hashCode();
-        System.out.println(src);
+//        System.out.println(src);
         if (src == enter_hash){
             _pressEnter();
         }else if(src == setting_hash){
@@ -86,7 +85,7 @@ public class ButtonOperator implements MouseListener, Enter{
             int flag = Enter.submit(boxes.getRow(Position.getRow()), wordList);
             if (flag == 1){
                 Position.setRow(6);
-                PopWindow pop = new PopWindow(fatherFrame, "You win!", false);
+                PopWindow pop = new PopWindow(fatherFrame, "You win!", "Restart", false);
                 pop.jb.addActionListener(new ClickRestart(pop, boxes));
                 pop.setVisible(true);
             }else if (flag == 0) {
@@ -95,13 +94,13 @@ public class ButtonOperator implements MouseListener, Enter{
                     Position.setCol(0);
                 }
             }else{
-                PopWindow pop = new PopWindow(fatherFrame, "Not in wordlist!", true);
+                PopWindow pop = new PopWindow(fatherFrame, "Not in wordlist!", "Close", true);
                 pop.setVisible(true);
             }
 
         }
         else{
-            System.out.println("line not full, enter do nothing");      //for debug
+//            System.out.println("line not full, enter do nothing");      //for debug
         }
         boxes.requestFocusInWindow();
     }
@@ -125,72 +124,5 @@ public class ButtonOperator implements MouseListener, Enter{
     }
 }
 
-//public class ButtonOperator implements MouseListener, Enter{
-//    JButton enter = null;
-//    LetterBoxes boxes = null;
-//    WordList wordList = null;
-//    JFrame fatherFrame = null;
-//
-//    /**
-//     * Initialize a {@code ButtonOperator} instance.
-//     * @param jButton the button to perform.
-//     * @param letterBoxes an instance of {@code LetterBoxes}.
-//     * @param wordList an instance of {@code WordList}.
-//     * @param fatherFrame an instance of {@code JFrame}, the father frame.
-//     */
-//    public ButtonOperator(JButton jButton, LetterBoxes letterBoxes, WordList wordList, JFrame fatherFrame){
-//        this.enter = jButton;
-//        enter.addMouseListener(this);
-//        this.boxes = letterBoxes;
-//        this.wordList = wordList;
-//        this.fatherFrame = fatherFrame;
-//    }
-//
-//    /**
-//     * Deal with the mouse click.
-//     * @param e the event to be processed
-//     */
-//    @Override
-//    public void mouseClicked(MouseEvent e) {
-//        if (Position.getCol() == LetterBoxes.COLS){
-//            int flag = Enter.submit(boxes.getRow(Position.getRow()), wordList);
-//            if (flag == 1){
-//                Position.setRow(6);
-//                PopWindow pop = new PopWindow(fatherFrame, "You win!");
-//                pop.setVisible(true);
-//            }else if (flag == 0) {
-//                if (Position.getRow() < LetterBoxes.ROWS) {
-//                    Position.setRow((Position.getRow()+1));
-//                    Position.setCol(0);
-//                }
-//            }else{
-//                PopWindow pop = new PopWindow(fatherFrame, "not in wordlist");
-//                pop.setVisible(true);
-//            }
-//
-//        }
-//        else{
-//            System.out.println("line not full, enter do nothing");      //for debug
-//        }
-//        boxes.requestFocusInWindow();
-//    }
-//
-//    @Override
-//    public void mousePressed(MouseEvent e) {
-//    }
-//
-//    @Override
-//    public void mouseReleased(MouseEvent e) {
-//    }
-//
-//    @Override
-//    public void mouseEntered(MouseEvent e) {
-////        fatherFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-//    }
-//
-//    @Override
-//    public void mouseExited(MouseEvent e) {
-////        fatherFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-//    }
-//}
+
 

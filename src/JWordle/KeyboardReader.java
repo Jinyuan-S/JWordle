@@ -32,7 +32,7 @@ import java.awt.event.*;
  * </p>
  *
  * @author Jinyuan Sun
- * @version 1.0
+ * @version 1.1
  */
 public class KeyboardReader implements KeyListener, Enter {
     LetterBoxes boxes = null;
@@ -72,7 +72,6 @@ public class KeyboardReader implements KeyListener, Enter {
      */
     @Override
     public void keyTyped(KeyEvent e) {
-//        System.out.println("in keyTyped current row: " + Position.getRow() +" current col: " + Position.getCol());
         char c = e.getKeyChar();
         int ret  =_validate(c);
         if (ret == 1){
@@ -162,7 +161,7 @@ public class KeyboardReader implements KeyListener, Enter {
             int flag = Enter.submit(boxes.getRow(Position.getRow()), wordList); //0-not, 1-win, 2-word not found
             if (flag == 1){
                 Position.setRow(6);
-                PopWindow pop = new PopWindow(fatherFrame, "You win!", false);
+                PopWindow pop = new PopWindow(fatherFrame, "You win!", "Restart", false);
                 pop.jb.addActionListener(new ClickRestart(pop, boxes));
                 pop.setVisible(true);
             }else if (flag == 0){
@@ -171,7 +170,7 @@ public class KeyboardReader implements KeyListener, Enter {
                     Position.setCol(0);
                 }
             }else{  //2-not in wordlist
-                PopWindow pop = new PopWindow(fatherFrame, "not in wordlist", true);
+                PopWindow pop = new PopWindow(fatherFrame, "not in wordlist", "Close", true);
                 pop.setVisible(true);
             }
 

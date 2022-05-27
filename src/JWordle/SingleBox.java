@@ -32,7 +32,7 @@ import java.awt.*;
  *     provided in the class.
  * </p>
  * @author Jinyuan Sun
- * @version 1.0
+ * @version 1.2
  */
 public class SingleBox extends JLabel {
     private final static Color _yellow = new Color(198, 180, 102);
@@ -94,6 +94,7 @@ public class SingleBox extends JLabel {
             this.border = BorderFactory.createLineBorder(_borderGray, 4);
             this.setBorder(border);
             this.setBackground(Color.WHITE);
+            this.setForeground(Color.BLACK);
         }
     }
 

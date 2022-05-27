@@ -33,7 +33,7 @@ import java.awt.event.ActionListener;
  * </p>
  *
  * @author Jinyuan Sun
- * @version 1.4
+ * @version 1.5
  */
 public class PopWindow extends JDialog {
 
@@ -45,24 +45,24 @@ public class PopWindow extends JDialog {
      * @param text the text to be displayed.
      * @param useClickClose whether to use the default {@code ClickClose} ActionListener
      */
-    public PopWindow(JFrame jFrame, String text, boolean useClickClose){
+    public PopWindow(JFrame jFrame, String text, String buttonText, boolean useClickClose){
         super(jFrame, "Reminder", true);
         this.setLayout(null);
         Container c = this.getContentPane();
         _initialize(251, 200, jFrame);
         JLabel label = new JLabel(text);
-        label.setFont(new Font("Serif", Font.BOLD, 20) );
+        label.setFont(new Font("Serif", Font.BOLD, 25) );
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setVerticalAlignment(JLabel.CENTER);
         label.setBounds(25,25,201, 30);
 
         c.add(label);
 
-        jb = new JButton("Close");
+        jb = new JButton(buttonText);
         if (useClickClose){
             jb.addActionListener(new ClickClose(this));
         }
-        jb.setBounds(75, 85, 100, 50);
+        jb.setBounds(60, 85, 130, 50);
         c.add(jb);
 
     }

@@ -24,6 +24,7 @@ package JWordle;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * A class that can read wordlist from file and store in an {@code ArrayList}.
@@ -35,13 +36,13 @@ import java.util.Locale;
  * </p>
  *
  * @author Jinyuan Sun
- * @version 1.0
+ * @version 1.2
  */
 public class WordList {
 
     private ArrayList<String> list = null;  //wordlist
     private BufferedReader br = null;
-    private static String ANS = "STAMP";    //the answer
+    private static String ANS = "LEVER";    //the answer
 
     /**
      * Read file from path, add to the Arraylist.
@@ -70,6 +71,7 @@ public class WordList {
                 e.printStackTrace();
             }
         }
+        generateAns();
     }
 
     /**
@@ -79,6 +81,15 @@ public class WordList {
      */
     public boolean inWordlist(String s){
         return list.contains(s);
+    }
+
+    /**
+     * Generate a random answer from wordlist.
+     */
+    public void generateAns(){
+        Random random = new Random();
+        WordList.ANS = list.get(random.nextInt(list.size()));
+        System.out.println("the new answer is " + WordList.ANS);
     }
 
     /**
