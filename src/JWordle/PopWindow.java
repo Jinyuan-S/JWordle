@@ -50,10 +50,10 @@ public class PopWindow extends JDialog {
         this.setLayout(null);
         Container c = this.getContentPane();
         _initialize(251, 200, jFrame);
-        JLabel label = new JLabel(text);
-        label.setFont(new Font("Serif", Font.BOLD, 25) );
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setVerticalAlignment(JLabel.CENTER);
+        JLabel label = MainPage.makeLabel(text, "Serif", Font.BOLD, 25);
+//        label.setFont(new Font("Serif", Font.BOLD, 25) );
+//        label.setHorizontalAlignment(JLabel.CENTER);
+//        label.setVerticalAlignment(JLabel.CENTER);
         label.setBounds(25,25,201, 30);
 
         c.add(label);
@@ -142,5 +142,38 @@ class ClickRestart implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         boxes.refresh();
         window.dispose();
+    }
+}
+
+class PopWin extends PopWindow{
+
+    public PopWin(JFrame jFrame) {
+        super(251, 300, jFrame, "Congratulations");
+        this.setLayout(null);
+        Container c = this.getContentPane();
+        JLabel line1 = MainPage.makeLabel("Success", "Serif", Font.BOLD, 40);
+        line1.setForeground(new Color(121, 167, 107));
+        line1.setBounds(15,20,221, 50);
+        c.add(line1);
+
+        JLabel line2 = MainPage.makeLabel("in guessing", "Serif", Font.PLAIN, 20);
+        line2.setForeground(Color.BLACK);
+        line2.setBounds(25,65,201, 30);
+        c.add(line2);
+
+        JLabel line3 = MainPage.makeLabel(WordList.getAns(), "SansSerif", Font.BOLD, 40);
+        line3.setForeground(Color.BLACK);
+        line3.setBounds(25,95,201, 50);
+        c.add(line3);
+
+        JLabel line4 = MainPage.makeLabel("within 「 " + (Position.getRow()+1) + " 」 tries", "Serif", Font.BOLD, 20);
+        line4.setForeground(new Color(121, 167, 107));
+        line4.setBounds(25,150,201, 30);
+        c.add(line4);
+
+        jb = new JButton("Play Again");
+        jb.setBounds(60, 195, 130, 50);
+        c.add(jb);
+
     }
 }

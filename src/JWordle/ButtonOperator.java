@@ -32,12 +32,12 @@ import java.awt.event.MouseListener;
  * </p>
  *
  * @author Jinyuan Sun
- * @version 1.3
+ * @version 1.4
  */
 public class ButtonOperator implements MouseListener, Enter{
     JButton enter = null;
     int enter_hash = 0;
-    JButton setting = null;
+//    JButton setting = null;
     int setting_hash = 0;
     LetterBoxes boxes = null;
     WordList wordList = null;
@@ -55,9 +55,9 @@ public class ButtonOperator implements MouseListener, Enter{
         enter_hash = jbArray[0].hashCode();
         enter.addMouseListener(this);
 
-        this.setting = jbArray[1];
-        setting_hash = jbArray[1].hashCode();
-        setting.addMouseListener(this);
+//        this.setting = jbArray[1];
+//        setting_hash = jbArray[1].hashCode();
+//        setting.addMouseListener(this);
         this.boxes = letterBoxes;
         this.wordList = wordList;
         this.fatherFrame = fatherFrame;
@@ -84,10 +84,12 @@ public class ButtonOperator implements MouseListener, Enter{
         if (Position.getCol() == LetterBoxes.COLS){
             int flag = Enter.submit(boxes.getRow(Position.getRow()), wordList);
             if (flag == 1){
-                Position.setRow(6);
-                PopWindow pop = new PopWindow(fatherFrame, "You win!", "Restart", false);
+                PopWindow pop = new PopWin(fatherFrame);
                 pop.jb.addActionListener(new ClickRestart(pop, boxes));
                 pop.setVisible(true);
+                Position.setRow(0);
+                Position.setCol(0);
+                wordList.generateAns();
             }else if (flag == 0) {
                 if (Position.getRow() < LetterBoxes.ROWS) {
                     Position.setRow((Position.getRow()+1));

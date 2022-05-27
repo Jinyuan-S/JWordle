@@ -84,7 +84,7 @@ public interface Enter{
             }
             if (cnt == 5){
                 isWin = 1;
-                wordList.generateAns();
+//                wordList.generateAns();
             }
         }else{      //the word is not in the wordlist
             isWin = 2;
