@@ -12,8 +12,7 @@ An Java version Wordle based on Swing
 
 ### Compile & Run
 ```shell
-cd ./src
-javac JWordle/*.java && java JWordle/Start
+javac -d . ./src/JWordle/*.java && java JWordle.Start
 ```
 
 ### Regenerate the Javadoc
