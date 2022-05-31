@@ -1,4 +1,4 @@
-# JWordle
+# JWordle <a href="https://github.com/Jinyuan-S/JWordle"> <img src="https://github.githubassets.com/images/modules/site/icons/footer/github-mark.svg" width="3%"></a>
 An Java version Wordle based on Swing
 
 ## How to play
@@ -14,6 +14,11 @@ An Java version Wordle based on Swing
 ```shell
 javac -d . ./src/JWordle/*.java && java JWordle.Start
 ```
+
+## Preference
++ #### A large wordlist which contains of 2500+ words.
++ #### An user friendly interface.
++ #### adapt to MacOSX system.
 
 ### Regenerate the Javadoc
 
@@ -72,3 +77,21 @@ javadoc -d ./doc ./src/JWordle/*.java
 1. Menu page
 2. Account & userlogin(logic)
 3. fix bug in restart
+
+
+### v1.4
+
+**about:** added not enough word alert, update javadoc.
+
+**already have：**
+
+1. Basic GUI window
+2. input logic, button action
+3. Wordlist check, Legality check
+4. pop-window alert
+5. Restart
+
+**Todo：**
+
+1. Menu page
+2. Account & userlogin(logic)
