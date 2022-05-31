@@ -34,7 +34,7 @@ public class LetterBoxes extends JPanel {
     /**
      * The core {@code SingleBox} array.
      */
-    private final SingleBox[][] boxes = new SingleBox[6][5];
+    private final static SingleBox[][] boxes = new SingleBox[6][5];
     /**
      * define the width of the letter box
      */
@@ -91,7 +91,7 @@ public class LetterBoxes extends JPanel {
     /**
      * Restart the game, refresh the {@code LetterBoxes}.
      */
-    public void refresh(){
+    public  static void refresh(){
         for (int i = 0; i < boxes.length; i++){ //initialize the array
             for (int j = 0; j < boxes[i].length; j++){
                 boxes[i][j].refresh(4, " ");

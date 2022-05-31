@@ -25,6 +25,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
  * The {@code PopWindow} class extends JDialog, aiming to show a pop-up window for reminder.
@@ -174,14 +176,28 @@ class PopRes extends PopWindow{
     public PopRes(JFrame jFrame, boolean win) {
         super(251, 300, jFrame, "Congratulations");
         this.setLayout(null);
+        this.addWindowListener(new CloseRefresh());
+
         Container c = this.getContentPane();
         JLabel line1 = null;
         if (win){
             line1 = MainPage.makeLabel("Success", "Serif", Font.BOLD, 40);
             line1.setForeground(new Color(121, 167, 107));
+
+            JLabel line4 = MainPage.makeLabel("within 「 " + (Position.getRow()+1) + " 」 tries", "Serif", Font.BOLD, 20);
+            line4.setForeground(new Color(121, 167, 107));
+            line4.setBounds(25,150,201, 30);
+            c.add(line4);
         }else{
+            this.setTitle("Oh no");
             line1 = MainPage.makeLabel("Failed", "Serif", Font.BOLD, 40);
             line1.setForeground(new Color(121, 124, 126));
+
+            JLabel line4 = MainPage.makeLabel("within 「 " + (Position.getRow()+1) + " 」 tries", "Serif", Font.BOLD, 20);
+            line4.setForeground(new Color(198, 180, 102));
+            line4.setBounds(25,150,201, 30);
+            c.add(line4);
+
         }
 
         line1.setBounds(15,20,221, 50);
@@ -197,14 +213,103 @@ class PopRes extends PopWindow{
         line3.setBounds(25,95,201, 50);
         c.add(line3);
 
-        JLabel line4 = MainPage.makeLabel("within 「 " + (Position.getRow()+1) + " 」 tries", "Serif", Font.BOLD, 20);
-        line4.setForeground(new Color(121, 167, 107));
-        line4.setBounds(25,150,201, 30);
-        c.add(line4);
 
         jb = new JButton("Play Again");
         jb.setBounds(60, 195, 130, 50);
         c.add(jb);
 
+    }
+
+    /**
+     * When close a {@code PopWindow}, refresh the {@code LetterBoxes}.
+     */
+    private static class CloseRefresh implements WindowListener{
+
+        /**
+         * Invoked the first time a window is made visible.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void windowOpened(WindowEvent e) {
+
+        }
+
+        /**
+         * Invoked when the user attempts to close the window
+         * from the window's system menu.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void windowClosing(WindowEvent e) {
+            LetterBoxes.refresh();
+        }
+
+        /**
+         * Invoked when a window has been closed as the result
+         * of calling dispose on the window.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void windowClosed(WindowEvent e) {
+
+        }
+
+        /**
+         * Invoked when a window is changed from a normal to a
+         * minimized state. For many platforms, a minimized window
+         * is displayed as the icon specified in the window's
+         * iconImage property.
+         *
+         * @param e the event to be processed
+         * @see Frame#setIconImage
+         */
+        @Override
+        public void windowIconified(WindowEvent e) {
+
+        }
+
+        /**
+         * Invoked when a window is changed from a minimized
+         * to a normal state.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void windowDeiconified(WindowEvent e) {
+
+        }
+
+        /**
+         * Invoked when the Window is set to be the active Window. Only a Frame or
+         * a Dialog can be the active Window. The native windowing system may
+         * denote the active Window or its children with special decorations, such
+         * as a highlighted title bar. The active Window is always either the
+         * focused Window, or the first Frame or Dialog that is an owner of the
+         * focused Window.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void windowActivated(WindowEvent e) {
+
+        }
+
+        /**
+         * Invoked when a Window is no longer the active Window. Only a Frame or a
+         * Dialog can be the active Window. The native windowing system may denote
+         * the active Window or its children with special decorations, such as a
+         * highlighted title bar. The active Window is always either the focused
+         * Window, or the first Frame or Dialog that is an owner of the focused
+         * Window.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void windowDeactivated(WindowEvent e) {
+
+        }
     }
 }

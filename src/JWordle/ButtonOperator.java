@@ -100,9 +100,10 @@ public class ButtonOperator implements MouseListener, Enter{
                         PopWindow pop = new PopRes(fatherFrame, false);
                         pop.jb.addActionListener(new ClickRestart(pop, boxes));
                         pop.setVisible(true);
+                    }else{
+                        Position.setRow(Position.getRow() + 1);
+                        Position.setCol(0);
                     }
-                    Position.setRow(Position.getRow() + 1);
-                    Position.setCol(0);
                 }
             }else{
                 PopWindow pop = new PopWindow(fatherFrame, "Not in wordlist!", "Close", true);

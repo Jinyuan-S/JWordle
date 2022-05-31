@@ -165,9 +165,10 @@ public class KeyboardReader implements KeyListener, Enter {
                         PopWindow pop = new PopRes(fatherFrame, false);
                         pop.jb.addActionListener(new ClickRestart(pop, boxes));
                         pop.setVisible(true);
+                    }else {
+                        Position.setRow(Position.getRow() + 1);
+                        Position.setCol(0);
                     }
-                    Position.setRow(Position.getRow() + 1);
-                    Position.setCol(0);
                 }
             }else{  //2-not in wordlist
                 PopWindow pop = new PopWindow(fatherFrame, "not in wordlist", "Close", true);
