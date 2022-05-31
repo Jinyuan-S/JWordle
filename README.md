@@ -1,6 +1,8 @@
 # JWordle <a href="https://github.com/Jinyuan-S/JWordle"> <img src="https://github.githubassets.com/images/modules/site/icons/footer/github-mark.svg" width="3%"></a>
 An Java version Wordle based on Swing
 
+An tutorial lecture on <a herf="https://www.youtube.com/watch?v=2alIWd1-jlI&t=37s">YouTube</a> is now available.
+
 ## How to play
 - Guess the Wordle word in tries for no more than 6 time.
 - Each guess must be a valid word with the length of **FIVE**.
