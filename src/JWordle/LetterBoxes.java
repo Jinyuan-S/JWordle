@@ -24,8 +24,17 @@ package JWordle;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Maintain an array of {@code SingleBox}. Formed the main interface with user.
+ * <p>The {@code LetterBoxes} extends from {@code JPanel}, consist of 5*6=30 {@code SingleBox}. </p>
+ * @author Jinyuan Sun
+ * @version 1.3
+ */
 public class LetterBoxes extends JPanel {
-    private SingleBox boxes[][] = new SingleBox[6][5];
+    /**
+     * The core {@code SingleBox} array.
+     */
+    private final SingleBox[][] boxes = new SingleBox[6][5];
     /**
      * define the width of the letter box
      */
@@ -43,6 +52,9 @@ public class LetterBoxes extends JPanel {
      */
     public static final int COLS = 5;
 
+    /**
+     * Create a LetterBoxes instance.
+     */
     public LetterBoxes(){
         this.setLayout(new GridLayout(ROWS, COLS, 5, 5));
 //        this.setBackground(Color.CYAN);     //for debug...
@@ -69,6 +81,7 @@ public class LetterBoxes extends JPanel {
     /**
      * Get a specified {@code LetterBox} item indexing by row and column.
      * @param row the row to return [0, 5]
+     * @param col the column to return [0, 4]
      * @return SingleBox[] array
      */
     public SingleBox getSingleBox(int row, int col){

@@ -35,13 +35,26 @@ import java.awt.*;
  * @version 1.2
  */
 public class SingleBox extends JLabel {
+    /**
+     * The color of yellow (wrong position)
+     */
     private final static Color _yellow = new Color(198, 180, 102);
+    /**
+     * The color of gray (incorrect)
+     */
     private final static Color _gray = new Color(121, 124, 126);
+    /**
+     * The color of green (correct)
+     */
     private final static Color _green = new Color(121, 167, 107);
+    /**
+     * The color of the border gray (border)
+     */
     private final static Color _borderGray = new Color(212, 214, 218);
+    /**
+     * the border of a {@code SingleBox}.
+     */
     private Border border = null;
-
-//    private JLabel jl = null;
 
     /**
      * Initialize a SingleBox instance to an uncheck state.

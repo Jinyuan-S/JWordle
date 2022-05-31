@@ -37,12 +37,17 @@ import java.awt.event.ActionListener;
  */
 public class PopWindow extends JDialog {
 
+    /**
+     * A reference of the button in the PopWindow.
+     * <p>mainly used for adding an MouseListener outside the class</p>
+     */
     JButton jb;
     /**
      * Creates a PopWindow instance with default width of 251 and default height of 300.
      * pop window will block the father window.
      * @param jFrame the father window.
      * @param text the text to be displayed.
+     * @param buttonText the text of the button in the {@code PopWindow}.
      * @param useClickClose whether to use the default {@code ClickClose} ActionListener
      */
     public PopWindow(JFrame jFrame, String text, String buttonText, boolean useClickClose){
@@ -110,6 +115,11 @@ class ClickClose implements ActionListener {
     }
 }
 
+/**
+ * Change the layer to display in a cardLayout when CLicked
+ * @author Jinyuan Sun
+ * @version 1.0
+ */
 class ClickChangeCard implements ActionListener {
     JPanel panel = null;
     String name;    //the destination card name.
@@ -127,6 +137,11 @@ class ClickChangeCard implements ActionListener {
     }
 }
 
+/**
+ * Restart the geme when clicked
+ * @author Jinyuan Sun
+ * @version 1.2
+ */
 class ClickRestart implements ActionListener {
     JDialog window = null;
     LetterBoxes boxes;
@@ -145,14 +160,30 @@ class ClickRestart implements ActionListener {
     }
 }
 
-class PopWin extends PopWindow{
+/**
+ * The pop window when you win the game(or lose)
+ * @author Jinyuan Sun
+ * @version 1.3
+ */
+class PopRes extends PopWindow{
 
-    public PopWin(JFrame jFrame) {
+    /**
+     * from a father {@code JFrame} create a new {@code PopWindow}.
+     * @param jFrame the father window
+     */
+    public PopRes(JFrame jFrame, boolean win) {
         super(251, 300, jFrame, "Congratulations");
         this.setLayout(null);
         Container c = this.getContentPane();
-        JLabel line1 = MainPage.makeLabel("Success", "Serif", Font.BOLD, 40);
-        line1.setForeground(new Color(121, 167, 107));
+        JLabel line1 = null;
+        if (win){
+            line1 = MainPage.makeLabel("Success", "Serif", Font.BOLD, 40);
+            line1.setForeground(new Color(121, 167, 107));
+        }else{
+            line1 = MainPage.makeLabel("Failed", "Serif", Font.BOLD, 40);
+            line1.setForeground(new Color(121, 124, 126));
+        }
+
         line1.setBounds(15,20,221, 50);
         c.add(line1);
 

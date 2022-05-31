@@ -32,7 +32,7 @@ import java.awt.event.MouseListener;
  * </p>
  *
  * @author Jinyuan Sun
- * @version 1.4
+ * @version 1.5
  */
 public class ButtonOperator implements MouseListener, Enter{
     JButton enter = null;
@@ -77,14 +77,18 @@ public class ButtonOperator implements MouseListener, Enter{
         }else if(src == setting_hash){
             System.out.println("in setting !!!");
         }
-
+        System.out.println("fuck");
+        boxes.requestFocusInWindow();
     }
 
+    /**
+     * Private method dealing with Enter.
+     */
     private void _pressEnter(){
         if (Position.getCol() == LetterBoxes.COLS){
             int flag = Enter.submit(boxes.getRow(Position.getRow()), wordList);
             if (flag == 1){
-                PopWindow pop = new PopWin(fatherFrame);
+                PopWindow pop = new PopRes(fatherFrame, true);
                 pop.jb.addActionListener(new ClickRestart(pop, boxes));
                 pop.setVisible(true);
                 Position.setRow(0);
@@ -92,34 +96,55 @@ public class ButtonOperator implements MouseListener, Enter{
                 wordList.generateAns();
             }else if (flag == 0) {
                 if (Position.getRow() < LetterBoxes.ROWS) {
-                    Position.setRow((Position.getRow()+1));
+                    if (Position.getRow() == 5){
+                        PopWindow pop = new PopRes(fatherFrame, false);
+                        pop.jb.addActionListener(new ClickRestart(pop, boxes));
+                        pop.setVisible(true);
+                    }
+                    Position.setRow(Position.getRow() + 1);
                     Position.setCol(0);
                 }
             }else{
                 PopWindow pop = new PopWindow(fatherFrame, "Not in wordlist!", "Close", true);
                 pop.setVisible(true);
             }
-
-        }
-        else{
-//            System.out.println("line not full, enter do nothing");      //for debug
+        } else{
+            PopWindow pop = new PopWindow(fatherFrame,"Not enough letters", "Close", true);
+            pop.setVisible(true);
         }
         boxes.requestFocusInWindow();
     }
 
+    /**
+     * Overriding the mousePressed method in interface {@code MouseListener}
+     * @param e the event to be processed
+     */
     @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    /**
+     * Regain focus on the WordBoxes
+     * @param e the event to be processed
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
+        boxes.requestFocusInWindow();
     }
 
+    /**
+     * Overriding the mouseEntered method in interface {@code MouseListener}
+     * @param e the event to be processed
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
 //        fatherFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
 
+    /**
+     * Overriding the mouseExited method in interface {@code MouseListener}
+     * @param e the event to be processed
+     */
     @Override
     public void mouseExited(MouseEvent e) {
 //        fatherFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));

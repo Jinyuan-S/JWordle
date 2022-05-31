@@ -22,6 +22,7 @@
 package JWordle;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 /**
@@ -32,7 +33,7 @@ import java.awt.event.*;
  * </p>
  *
  * @author Jinyuan Sun
- * @version 1.3
+ * @version 1.5
  */
 public class KeyboardReader implements KeyListener, Enter {
     LetterBoxes boxes = null;
@@ -82,14 +83,9 @@ public class KeyboardReader implements KeyListener, Enter {
             _typeLetter(c);
         }else if (ret == 3){
             _typeBackspace();
-//            System.out.println("this is a backspace");
         }else if (ret ==4){
             _typeEnter();
-        }else {
-            System.out.println("false");
-//            box.setText("?");
         }
-
     }
 
     /**
@@ -136,9 +132,6 @@ public class KeyboardReader implements KeyListener, Enter {
             box.setText(Character.toString(c));
             Position.setCol(Position.getCol() + 1); //pointer move forward
         }
-//        else{
-//            System.out.println("the line is full!");    //for debug
-//        }
     }
 
     /**
@@ -154,13 +147,13 @@ public class KeyboardReader implements KeyListener, Enter {
     }
 
     /**
-     * Private method response to a Enter.
+     * Private method response to an Enter.
      */
     private void _typeEnter (){
-        if (Position.getCol() == LetterBoxes.COLS){
+        if (Position.getCol() == LetterBoxes.COLS){     //the input letter is 5
             int flag = Enter.submit(boxes.getRow(Position.getRow()), wordList); //0-not, 1-win, 2-word not found
             if (flag == 1){
-                PopWindow pop = new PopWin(fatherFrame);
+                PopWindow pop = new PopRes(fatherFrame, true);
                 pop.jb.addActionListener(new ClickRestart(pop, boxes));
                 pop.setVisible(true);
                 Position.setRow(0);
@@ -168,6 +161,11 @@ public class KeyboardReader implements KeyListener, Enter {
                 wordList.generateAns();
             }else if (flag == 0){
                 if (Position.getRow() < LetterBoxes.ROWS) {
+                    if (Position.getRow() == 5){
+                        PopWindow pop = new PopRes(fatherFrame, false);
+                        pop.jb.addActionListener(new ClickRestart(pop, boxes));
+                        pop.setVisible(true);
+                    }
                     Position.setRow(Position.getRow() + 1);
                     Position.setCol(0);
                 }
@@ -177,9 +175,10 @@ public class KeyboardReader implements KeyListener, Enter {
             }
 
         }
-//        else{
-//            System.out.println("line not full, enter do nothing");      //for debug
-//        }
+        else{   //not enough letters
+            PopWindow pop = new PopWindow(fatherFrame,"Not enough letters", "Close", true);
+            pop.setVisible(true);
+        }
     }
 
 }
