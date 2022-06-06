@@ -57,7 +57,6 @@ public class LetterBoxes extends JPanel {
      */
     public LetterBoxes(){
         this.setLayout(new GridLayout(ROWS, COLS, 5, 5));
-//        this.setBackground(Color.CYAN);     //for debug...
         this.setSize(WIDTH, HEIGHT);
         for (int i = 0; i < boxes.length; i++){ //initialize the array
             for (int j = 0; j < boxes[i].length; j++){

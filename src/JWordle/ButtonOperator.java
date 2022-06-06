@@ -71,13 +71,11 @@ public class ButtonOperator implements MouseListener, Enter{
     @Override
     public void mouseClicked(MouseEvent e) {
         int src = e.getSource().hashCode();
-//        System.out.println(src);
         if (src == enter_hash){
             _pressEnter();
         }else if(src == setting_hash){
             System.out.println("in setting !!!");
         }
-        System.out.println("fuck");
         boxes.requestFocusInWindow();
     }
 
@@ -139,7 +137,6 @@ public class ButtonOperator implements MouseListener, Enter{
      */
     @Override
     public void mouseEntered(MouseEvent e) {
-//        fatherFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
 
     /**
@@ -148,7 +145,6 @@ public class ButtonOperator implements MouseListener, Enter{
      */
     @Override
     public void mouseExited(MouseEvent e) {
-//        fatherFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
 }
 

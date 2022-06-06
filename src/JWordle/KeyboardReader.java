@@ -52,18 +52,6 @@ public class KeyboardReader implements KeyListener, Enter {
         this.fatherFrame = fatherFrame;
         this.boxes = letterBoxes;
         boxes.addKeyListener(this);
-//        ****调试****
-//        boxes.addFocusListener(new FocusListener() {      //for debug :
-//            @Override
-//            public void focusGained(FocusEvent e) {
-//                boxes.setBackground(Color.CYAN);
-//            }
-//
-//            @Override
-//            public void focusLost(FocusEvent e) {
-//                boxes.setBackground(Color.GREEN);
-//            }
-//        });
 
     }
 
