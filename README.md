@@ -13,6 +13,8 @@ An tutorial lecture on <a href="https://www.youtube.com/watch?v=2alIWd1-jlI&t=37
 
 
 ### Compile & Run
+go to the root directory of JWordle, open the terminal and run:
+
 ```shell
 javac -d . ./src/JWordle/*.java && java JWordle.Start
 ```
